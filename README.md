@@ -71,7 +71,7 @@ MongoDB badges
 
 - LinkedIn: https://www.linkedin.com/in/www.linkedin.com/in/tumu-indra-reddy
 - GitHub: https://github.com/indratumu296-web
-- Email: tumuindra296@gmail.com
+- Email: indratumu296@gmail.com
 
 ---
 
