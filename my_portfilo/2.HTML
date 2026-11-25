@@ -134,6 +134,7 @@
                 <a href="#experience" class="hover:text-brand-500 transition-colors">Experience</a>
                 <a href="#education" class="hover:text-brand-500 transition-colors">Education</a>
                 <a href="#certifications" class="hover:text-brand-500 transition-colors">Certificates</a>
+                <a href="#resume" class="hover:text-brand-500 transition-colors">Resume</a>
                 <a href="#contact" class="hover:text-brand-500 transition-colors">Contact</a>
             </div>
 
@@ -196,9 +197,14 @@
                             <i class="fa-regular fa-envelope text-base text-brand-500"></i> indratumu296@gmail.com
                         </button>
                     </div>
-                    <a href="resumeindra.pdf" download="Tumu-Indra-Reddy-Resume.pdf" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold transition-colors">
-                        <i class="fa-solid fa-file-arrow-down"></i> Download Resume
-                    </a>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-3">
+                        <a href="Resume_indra.pdf?v=20261125" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-600 text-slate-200 hover:border-brand-500 hover:text-white text-sm font-semibold transition-colors">
+                            <i class="fa-solid fa-file-lines"></i> View Resume
+                        </a>
+                        <button type="button" onclick="downloadResume()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold transition-colors">
+                            <i class="fa-solid fa-file-arrow-down"></i> Download Resume
+                        </button>
+                    </div>
                 </div>
             </div>
         </header>
@@ -878,9 +884,14 @@
                         <p class="text-slate-300 mt-1">AI &amp; ML Student | Software Engineer | Web Developer</p>
                         <p class="text-slate-400 text-sm mt-2">Chennai, Tamil Nadu, India · indratumu296@gmail.com · +91 9182396496</p>
                     </div>
-                    <a href="resumeindra.pdf" download="Tumu-Indra-Reddy-Resume.pdf" class="inline-flex shrink-0 items-center justify-center gap-2 px-5 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold transition-colors">
-                        <i class="fa-solid fa-download" aria-hidden="true"></i> Download Resume
-                    </a>
+                    <div class="flex flex-wrap sm:justify-end gap-3 shrink-0">
+                        <a href="Resume_indra.pdf?v=20261125" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-slate-600 text-slate-200 hover:border-brand-500 hover:text-white text-sm font-semibold transition-colors">
+                            <i class="fa-solid fa-file-lines" aria-hidden="true"></i> View Resume
+                        </a>
+                        <button type="button" onclick="downloadResume()" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold transition-colors">
+                            <i class="fa-solid fa-download" aria-hidden="true"></i> Download Resume
+                        </button>
+                    </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6 mt-8">
@@ -1177,6 +1188,34 @@
             document.body.removeChild(tempInput);
 
             showToast(successMsg);
+        }
+
+        async function downloadResume() {
+            try {
+                const response = await fetch('Resume_indra.pdf?v=20261125');
+                if (!response.ok) {
+                    throw new Error(`Could not load resume (${response.status}).`);
+                }
+
+                const blob = await response.blob();
+                if (blob.size === 0) {
+                    throw new Error('The resume file is empty.');
+                }
+
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'Tumu-Indra-Reddy-Resume.pdf';
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+                showToast('Resume downloaded successfully.');
+            } catch (error) {
+                console.error('Resume download failed:', error);
+                window.open('Resume_indra.pdf?v=20261125', '_blank', 'noopener');
+                showToast('PDF opened in a new tab. Use Save As to download it.');
+            }
         }
 
         /* Toast Helper */
